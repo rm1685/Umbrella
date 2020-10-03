@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Umbrella Weather App</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+      integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX"
+      crossorigin="anonymous"/>
+    <link rel="stylesheet" href="src/styles.css"/>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/705437141f.js" crossorigin="anonymous"></script>
+    <script src="src/index.js"></script>
+  </head>
+  <body>
+    <div class=container>
+    </br>
+  <div class="card" id="holdallcard">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-5">
+          <i class="fas fa-umbrella" id="umbrellaicon"></i>
+            <span id="umbrellatitle">
+            Umbrella?
+          </span>  
+          
+        </div>  
+        <div class="col-1"> 
+           
+        </div>
+        <div class="col-3">
+            <button id="helpbutton">
+                Help
+              </button> 
+<span id= "converterbuttonblock" class="converterbuttons">
+    <button id="Fconverterbutton" class="converterbuttons">°F</button>
+    <span>|</span>
+    <button id="Cconverterbutton" class="converterbuttons">°C</button>
+    <button id="geolocationbutton">
+        🌍
+      </button> 
+  </span>  
+            
+        </div>
+        <div class="col-2">
+            
+          <form class="form-inline" id="searchbar">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchinput">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      
+        
+      
+        <div class="card" id="maindisplaycard">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4">
+                <i class="fas fa-sun" id="todaysweathericon"></i>
+              </div>
+              <div class="col-4">
+                <div id="temperature" class="maindisplayprimarytext">                 
+                    <span id="temperaturevalue"></span>
+                    <span id="celsiusorfarenheit">°C</span>                
+                    
+                </div>
+                <div id="todaysweatherdescription" class="maindisplaysecondarytext">
+                  
+                </div>
+                </br>
+              </br>
+              <strong>
+                <div id="umbrellawarning" class="maindisplaysecondarytext">
+                  
+                </div>
+              </strong>
+              </div>
+              <div class="col-4">
+                <div id="city" class="maindisplayprimarytext">
+                  
+                </div> 
+                <div id="region" class="maindisplaysecondarytext"></div>
+                </br>
+              </br>
+                <div id="date" class="maindisplaysecondarytext">
+                  <strong>
+                  <div id="timeofday"></div>
+              <span id="dayofweek"></span>
+                    <span id="dayofmonth"></span>
+                    <span id="month"></span>
+                    <span id="year"></span>
+                    <button id="refreshtime"><strong>⟳</strong></button>
+                  </strong>
+                </div>
+              </div>
+            </div> 
+          </div>
+        </div>
+        <div class="card" id="bottombar">
+            <div class="card-body"></div>
+          </div>
+        <div class="card" id="fivedayscard">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <i class="fas fa-sun fivedaysweathericons" ></i>
+                </br>
+                <div class="daysoftheweek" id="tomorrow">
+                  
+                </div>
+                <div class="daysoftheweektemperatures" >
+                  <span id="tomorrowstemperature"></span>
+                  <span id="tomorrowscorf">°C</span>
+                  <div id="tomorrowsweatherdescription" class="fivedaysweatherdescriptions"></div>
+                </div>
+              </div>
+              <div class="col">
+                <i class="fas fa-cloud-sun fivedaysweathericons"></i>
+                </br>
+                <div class="daysoftheweek" id="secondday">
+                  
+                </div>
+                <div class="daysoftheweektemperatures">
+                  <span id="secondtemperature"></span>
+                  <span id="secondcorf">°C</span>
+                  <div id="secondweatherdescription" class="fivedaysweatherdescriptions"></div>
+                </div>
+              </div>
+              <div class="col">
+                <i class="fas fa-cloud fivedaysweathericons"></i>
+                </br>
+                <div class="daysoftheweek" id="thirdday">
+                  
+                </div>
+                <div class="daysoftheweektemperatures" >
+                  <span id="thirdtemperature"></span> 
+                  <span id="thirdcorf">°C</span>
+                  <div id="thirdweatherdescription" class="fivedaysweatherdescriptions"></div>
+                </div>
+              </div>
+              <div class="col">
+                <i class="fas fa-cloud-sun-rain fivedaysweathericons"></i>
+                </br>
+                <div class="daysoftheweek" id="fourthday">
+                  
+                </div>
+                <div class="daysoftheweektemperatures">
+                  
+                  <span id="fourthtemperature"></span> 
+                  <span id="fourthcorf">°C</span>
+                  <div id="fourthweatherdescription" class="fivedaysweatherdescriptions"></div>
+                </div>
+              </div>
+              <div class="col">
+                <i class="fas fa-cloud-rain fivedaysweathericons"></i>
+                </br>
+                <div class="daysoftheweek" id="fifthday">
+                  
+                </div>
+                <div class="daysoftheweektemperatures">
+                  <span id="fifthtemperature"></span> 
+                  <span id="fifthcorf">°C</span>
+                  <div id="fifthweatherdescription" class="fivedaysweatherdescriptions"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card" id="bottombar">
+          <div class="card-body"></div>
+        </div>
+    </div>
+  </div>
+</br>
+</div>
+  </body>
+</html>
