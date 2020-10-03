@@ -488,3 +488,4 @@ function helpFunction() {
   );
 }
 helpButton.addEventListener("click", helpFunction);
+//end of document
