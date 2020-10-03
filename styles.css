@@ -1,0 +1,126 @@
+#holdallcard {
+  background-color: #fffcfc;
+  margin: 0px;
+  font-size: 20px;
+}
+
+#converterbuttonblock {
+  position: relative;
+  left: 70px;
+  bottom: 3px;
+  color: rgb(167, 74, 167);
+  font-size: 20px;
+  border: 5px;
+  border: black;
+}
+.converterbuttons {
+  border: none;
+  background-color: #f4f5f7;
+  padding: 1px;
+  color: rgb(167, 74, 167);
+  font-size: 20px;
+}
+#geolocationbutton {
+  border: none;
+  background-color: #f4f5f7;
+  position: relative;
+  left: 18px;
+  top: 3px;
+  font-size: 28px;
+  padding: 0px;
+}
+#searchbar {
+  vertical-align: -webkit-baseline-middle;
+  padding: 0px;
+  margin: 0px;
+}
+#maindisplaycard {
+  background-color: #f4f5f7;
+  margin: 0px 0px 15px;
+}
+.maindisplayprimarytext {
+  font-size: 35px;
+  color: #536dfe;
+  font-weight: 500;
+}
+.maindisplaysecondarytext {
+  font-size: 20px;
+  color: rgb(204, 77, 119);
+}
+#fivedayscard {
+  background-color: #fff8ec;
+  margin: 15px 0px;
+}
+#umbrellaicon {
+  color: #536dfe;
+  font-size: 40px;
+  vertical-align: -webkit-baseline-middle;
+}
+#umbrellatitle {
+  color: #536dfe;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 5px;
+  vertical-align: -webkit-baseline-middle;
+}
+
+#todaysweathericon {
+  font-size: 150px;
+  color: rgb(248, 186, 70);
+  text-align: center;
+  vertical-align: -webkit-baseline-middle;
+  position: relative;
+  left: 80px;
+  top: 10px;
+}
+
+.fivedaysweathericons {
+  font-size: 55px;
+  color: #f8be51;
+  text-align: center;
+  background-color: #f5f5fa;
+  padding: 30px;
+  margin: 15px;
+  border: 70px;
+  border-radius: 800px;
+  box-sizing: border-box;
+  border-width: 2px;
+  border-style: ridge;
+  border-color: #8192f5;
+}
+.daysoftheweektemperatures {
+  text-align: center;
+  position: relative;
+  right: 10px;
+  color: rgb(167, 74, 167);
+}
+.daysoftheweek {
+  text-align: center;
+  position: relative;
+  right: 10px;
+  color: rgb(121, 54, 121);
+}
+#bottombar {
+  background-color: #ebedf9;
+}
+#refreshtime {
+  padding: 0px 10px;
+  border: none;
+  font-size: 20px;
+  color: rgb(204, 77, 119);
+  background-color: #f4f5f7;
+}
+#helpbutton {
+  border: none;
+  background-color: #f7f4f4;
+  position: relative;
+  bottom: 5px;
+  left: 55px;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: rgb(167, 74, 167);
+  border: rgb(167, 74, 167);
+  border-style: solid;
+  border-width: thin;
+  border-radius: 1000px;
+}
