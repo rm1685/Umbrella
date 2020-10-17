@@ -9,7 +9,7 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
       integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX"
       crossorigin="anonymous"/>
-    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="src/styles.css"/>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://kit.fontawesome.com/705437141f.js" crossorigin="anonymous"></script>
     
@@ -60,7 +60,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-4">
-                <i class="fas fa-sun" id="todaysweathericon"></i>
+                <img src="http://openweathermap.org/img/wn/10d@2x.png" id="todaysweathericon" ></img>
               </div>
               <div class="col-4">
                 <div id="temperature" class="maindisplayprimarytext">                 
@@ -73,11 +73,8 @@
                 </div>
                 </br>
               </br>
-              <strong>
-                <div id="umbrellawarning" class="maindisplaysecondarytext">
-                  
-                </div>
-              </strong>
+              <div id="umbrellawarning" class="maindisplaysecondarytext maindisplayboldtext">
+                  </div>
               </div>
               <div class="col-4">
                 <div id="city" class="maindisplayprimarytext">
@@ -87,27 +84,34 @@
                 </br>
               </br>
                 <div id="date" class="maindisplaysecondarytext">
-                  <strong>
+                  <span class="maindisplayboldtext">
                   <div id="timeofday"></div>
               <span id="dayofweek"></span>
                     <span id="dayofmonth"></span>
                     <span id="month"></span>
                     <span id="year"></span>
-                    <button id="refreshtime"><strong>⟳</strong></button>
-                  </strong>
+                    <button id="refreshtime" class="maindisplayboldtext"><strong>⟳</strong></button>
+                  </span> 
                 </div>
               </div>
             </div> 
           </div>
         </div>
-        <div class="card" id="bottombar">
-            <div class="card-body"></div>
+        <div class="card" id="supplementalbar">
+            <div class="card-body">
+              <div class="row">
+                  <div class="col">Cloud cover: <span id="mainClouds"></span></div>
+                  <div class="col">Wind speed: <span id="mainWindSpeed"></span></div>
+                  <div class="col">Humidity: <span id="mainHumidity"></span></div>
+              </div>
+              
+            </div>
           </div>
         <div class="card" id="fivedayscard">
           <div class="card-body">
             <div class="row">
               <div class="col">
-                <i class="fas fa-sun fivedaysweathericons" ></i>
+                <img class="fivedaysweathericons" id="tomorrowsweathericon" src="http://openweathermap.org/img/wn/10d@2x.png"></img>
                 </br>
                 <div class="daysoftheweek" id="tomorrow">
                   
@@ -119,7 +123,7 @@
                 </div>
               </div>
               <div class="col">
-                <i class="fas fa-cloud-sun fivedaysweathericons"></i>
+                <img class="fivedaysweathericons" src="http://openweathermap.org/img/wn/10d@2x.png" id="secondweathericon"></img>
                 </br>
                 <div class="daysoftheweek" id="secondday">
                   
@@ -131,7 +135,7 @@
                 </div>
               </div>
               <div class="col">
-                <i class="fas fa-cloud fivedaysweathericons"></i>
+                <img class="fivedaysweathericons" src="http://openweathermap.org/img/wn/10d@2x.png" id="thirdweathericon"></img>
                 </br>
                 <div class="daysoftheweek" id="thirdday">
                   
@@ -143,7 +147,7 @@
                 </div>
               </div>
               <div class="col">
-                <i class="fas fa-cloud-sun-rain fivedaysweathericons"></i>
+                <img class="fivedaysweathericons" src="http://openweathermap.org/img/wn/10d@2x.png" id="fourthweathericon"></img>
                 </br>
                 <div class="daysoftheweek" id="fourthday">
                   
@@ -156,7 +160,7 @@
                 </div>
               </div>
               <div class="col">
-                <i class="fas fa-cloud-rain fivedaysweathericons"></i>
+                <img class="fivedaysweathericons" src="http://openweathermap.org/img/wn/10d@2x.png" id="fifthweathericon"></img>
                 </br>
                 <div class="daysoftheweek" id="fifthday">
                   
@@ -180,6 +184,7 @@
   </div>
 </br>
 </div>
-<script src="index.js"></script>
+<script src="src/index.js"></script>
   </body>
 </html>
+
