@@ -62,10 +62,16 @@ function changeDate() {
   yearSpace.innerHTML = now.getFullYear();
 }
 changeDate();
+let geoLocated = true;
 function refreshDateAndTime() {
   now = new Date();
   changeTime();
   changeDate();
+  if (geoLocated === true) {
+    geolocationWeather();
+  } else {
+    cityWeather();
+  }
 }
 let refreshButton = document.querySelector("#refreshtime");
 refreshButton.addEventListener("click", refreshDateAndTime);
@@ -234,8 +240,21 @@ function celsiusButtonFunction() {
 }
 Cconverterbutton.addEventListener("click", celsiusButtonFunction);
 // integrating the weather API
+// adding the framework in order to make the umbrella warning happen
+let umbrellaWarningSpace = document.querySelector("#umbrellawarning");
+function warnUmbrellaUser() {
+  umbrellaWarningSpace.innerHTML = "You'll need an umbrella";
+}
+
+function reassureUmbrellaUser() {
+  umbrellaWarningSpace.innerHTML = "No need for an umbrella";
+}
+function tentativelyWarnUmbrellaUser() {
+  umbrellaWarningSpace.innerHTML = "You might want to take an umbrella";
+}
 // city search function
 function cityWeather(city) {
+  geoLocated = false;
   let cityInput = city;
   let apiKey = "7571852f2fa939aa0c80cd40a9611936";
   let units = "tbc";
@@ -246,8 +265,36 @@ function cityWeather(city) {
   }
   let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}&units=${units}`;
   function changeMainWeather(response) {
+    let iconCode = response.data.weather[0].icon;
+    let icon = document.querySelector("#todaysweathericon");
+    icon.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+    );
     let temperature = Math.round(response.data.main.temp);
+    let humidity = `${response.data.main.humidity}%`;
+    let clouds = `${response.data.clouds.all}%`;
+    let windSpeed = `${Math.round(response.data.wind.speed * 3.6)}  km/h`;
     let weatherDescription = response.data.weather[0].description;
+    if (
+      weatherDescription.includes("rain") ||
+      weatherDescription.includes("drizzle")
+    ) {
+      console.log("It is raining");
+      warnUmbrellaUser();
+    } else {
+      if (weatherDescription.includes("overcast")) {
+        tentativelyWarnUmbrellaUser();
+      } else {
+        reassureUmbrellaUser();
+      }
+    }
+    let humiditySpace = document.querySelector("#mainHumidity");
+    let windSpeedSpace = document.querySelector("#mainWindSpeed");
+    let cloudsSpace = document.querySelector("#mainClouds");
+    cloudsSpace.innerHTML = clouds;
+    humiditySpace.innerHTML = humidity;
+    windSpeedSpace.innerHTML = windSpeed;
     let temperatureSpaceMain = document.querySelector("#temperaturevalue");
     temperatureSpaceMain.innerHTML = `${temperature}`;
     temperatureValue = temperature;
@@ -270,6 +317,12 @@ function cityWeather(city) {
     );
     tomorrowsDescriptionSpace.innerHTML =
       weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1);
+    let iconCode = response.data.list[8].weather[0].icon;
+    let tomorrowsicon = document.querySelector("#tomorrowsweathericon");
+    tomorrowsicon.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+    );
   }
   axios.get(apiURL5days).then(changeTomorrowsWeather);
   function changeSecondWeather(response) {
@@ -283,6 +336,12 @@ function cityWeather(city) {
     );
     secondDescriptionSpace.innerHTML =
       weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1);
+    let iconCode = response.data.list[16].weather[0].icon;
+    let secondicon = document.querySelector("#secondweathericon");
+    secondicon.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+    );
   }
   axios.get(apiURL5days).then(changeSecondWeather);
   function changeThirdWeather(response) {
@@ -296,6 +355,12 @@ function cityWeather(city) {
     );
     thirdDescriptionSpace.innerHTML =
       weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1);
+    let iconCode = response.data.list[24].weather[0].icon;
+    let thirdicon = document.querySelector("#thirdweathericon");
+    thirdicon.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+    );
   }
   axios.get(apiURL5days).then(changeThirdWeather);
   function changeFourthWeather(response) {
@@ -309,6 +374,12 @@ function cityWeather(city) {
     );
     fourthDescriptionSpace.innerHTML =
       weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1);
+    let iconCode = response.data.list[32].weather[0].icon;
+    let fourthicon = document.querySelector("#fourthweathericon");
+    fourthicon.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+    );
   }
   axios.get(apiURL5days).then(changeFourthWeather);
   function changeFifthWeather(response) {
@@ -322,6 +393,12 @@ function cityWeather(city) {
     );
     fifthDescriptionSpace.innerHTML =
       weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1);
+    let iconCode = response.data.list[39].weather[0].icon;
+    let fifthicon = document.querySelector("#fifthweathericon");
+    fifthicon.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+    );
   }
   axios.get(apiURL5days).then(changeFifthWeather);
 }
@@ -330,15 +407,17 @@ function searchCity(event) {
   let cityInput = document.querySelector("#searchinput");
   event.preventDefault();
   let citySpace = document.querySelector("#city");
-  citySpace.innerHTML = cityInput.value;
   cityInput = cityInput.value;
   cityWeather(cityInput);
+  cityInput = cityInput.charAt(0).toUpperCase() + cityInput.slice(1);
+  citySpace.innerHTML = cityInput;
 }
 let citySearchbar = document.querySelector("#searchbar");
 citySearchbar.addEventListener("submit", searchCity);
 
 //making the geolocation button work
 function geolocationWeather() {
+  geoLocated = true;
   let apiKey = "7571852f2fa939aa0c80cd40a9611936";
   let units = "tbc";
   if (isItCelsius === true) {
@@ -348,11 +427,42 @@ function geolocationWeather() {
   }
   function changeMainWeather(position) {
     function getWeather(response) {
+      let iconCode = response.data.weather[0].icon;
+      let icon = document.querySelector("#todaysweathericon");
+      icon.setAttribute(
+        "src",
+        `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+      );
       let temperature = Math.round(response.data.main.temp);
+      let humidity = `${response.data.main.humidity}%`;
+      let clouds = `${response.data.clouds.all}%`;
+      let windSpeed = `${Math.round(response.data.wind.speed * 3.6)}  km/h`;
       let weatherDescription = response.data.weather[0].description;
       let temperatureSpaceMain = document.querySelector("#temperaturevalue");
       temperatureSpaceMain.innerHTML = `${temperature}`;
       temperatureValue = temperature;
+      let humiditySpace = document.querySelector("#mainHumidity");
+      let windSpeedSpace = document.querySelector("#mainWindSpeed");
+      let cloudsSpace = document.querySelector("#mainClouds");
+      cloudsSpace.innerHTML = clouds;
+      humiditySpace.innerHTML = humidity;
+      windSpeedSpace.innerHTML = windSpeed;
+      if (
+        weatherDescription.includes("rain") ||
+        weatherDescription.includes("drizzle")
+      ) {
+        console.log("It is raining");
+        warnUmbrellaUser();
+      } else {
+        if (
+          weatherDescription.includes("overcast") ||
+          weatherDescription.includes("cloudy")
+        ) {
+          tentativelyWarnUmbrellaUser();
+        } else {
+          reassureUmbrellaUser();
+        }
+      }
       let descriptionSpace = document.querySelector(
         "#todaysweatherdescription"
       );
@@ -382,6 +492,12 @@ function geolocationWeather() {
       tomorrowsDescriptionSpace.innerHTML =
         weatherDescription.charAt(0).toUpperCase() +
         weatherDescription.slice(1);
+      let iconCode = response.data.list[8].weather[0].icon;
+      let tomorrowsicon = document.querySelector("#tomorrowsweathericon");
+      tomorrowsicon.setAttribute(
+        "src",
+        `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+      );
     }
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
@@ -403,6 +519,12 @@ function geolocationWeather() {
       secondDescriptionSpace.innerHTML =
         weatherDescription.charAt(0).toUpperCase() +
         weatherDescription.slice(1);
+      let iconCode = response.data.list[16].weather[0].icon;
+      let secondicon = document.querySelector("#secondweathericon");
+      secondicon.setAttribute(
+        "src",
+        `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+      );
     }
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
@@ -424,6 +546,12 @@ function geolocationWeather() {
       thirdDescriptionSpace.innerHTML =
         weatherDescription.charAt(0).toUpperCase() +
         weatherDescription.slice(1);
+      let iconCode = response.data.list[24].weather[0].icon;
+      let thirdicon = document.querySelector("#thirdweathericon");
+      thirdicon.setAttribute(
+        "src",
+        `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+      );
     }
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
@@ -445,6 +573,12 @@ function geolocationWeather() {
       fourthDescriptionSpace.innerHTML =
         weatherDescription.charAt(0).toUpperCase() +
         weatherDescription.slice(1);
+      let iconCode = response.data.list[32].weather[0].icon;
+      let fourthicon = document.querySelector("#fourthweathericon");
+      fourthicon.setAttribute(
+        "src",
+        `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+      );
     }
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
@@ -466,6 +600,12 @@ function geolocationWeather() {
       fifthDescriptionSpace.innerHTML =
         weatherDescription.charAt(0).toUpperCase() +
         weatherDescription.slice(1);
+      let iconCode = response.data.list[39].weather[0].icon;
+      let fifthicon = document.querySelector("#fifthweathericon");
+      fifthicon.setAttribute(
+        "src",
+        `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+      );
     }
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
@@ -488,4 +628,3 @@ function helpFunction() {
   );
 }
 helpButton.addEventListener("click", helpFunction);
-//end of document
